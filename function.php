@@ -1,5 +1,5 @@
 <?php
- //================================
+//================================
 // ログ
 //================================
 //ログを取るか
@@ -430,11 +430,13 @@ function getProduct($u_id, $p_id)
   }
 }
 
-function getProductList($currentMinNum = 1, $category, $sort, $price, $span = 20) //購入済み商品の除外ver
+function getProductList($category, $sort, $price, $currentMinNum = 1, $span = 20) //購入済み商品の除外ver
 {
   debug('商品情報を取得します。');
   //例外処理
   try {
+
+    //①全条件を適用した上での総レコード数と総ページ数を$rst['total'] &['total_page'] に格納
     // DBへ接続
     $dbh = dbConnect();
     // 件数用のSQL文作成
@@ -483,6 +485,7 @@ function getProductList($currentMinNum = 1, $category, $sort, $price, $span = 20
     }
 
     // ページング用のSQL文作成
+    //②全条件を適用した上で取得したデータをspan数分のみ$rst['data']に格納→$rstを呼び出し元にリターン
     $sql = 'SELECT * FROM product WHERE buy_flg != 1';
     if (!empty($category)) $sql .= ' AND category_id = ' . $category;
 

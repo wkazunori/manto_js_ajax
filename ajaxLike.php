@@ -48,4 +48,3 @@ if(isset($_POST['productId']) && isset($_SESSION['user_id']) && isLogin()){
   }
 }
 debug('Ajax処理終了 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
-?>
