@@ -10,11 +10,11 @@ debugLogStart();
 //================================
 // Ajax処理
 //================================
-
 if (!empty($_POST)) {
   debug('ajaxPostされた値確認:' . print_r($_POST, true));
-  $ajaxRst = getProductList($_POST['c_id'], $_POST['sort'], $_POST['price']);
+  $ajaxRst = getProductList($_POST['c_id'], $_POST['sort'], $_POST['price'], $_POST['current']);
   // debug('ajaxRstの値確認:' . print_r($ajaxRst, true));
   // $_SESSION['ajax_filter_product'] = $ajaxRst;
+  debug('ajaxRst:' . print_r($ajaxRst, true));
   echo json_encode($ajaxRst);
 }

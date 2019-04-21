@@ -528,6 +528,8 @@ function getProductList($category, $sort, $price, $currentMinNum = 1, $span = 20
 
     if ($stmt) {
       // クエリ結果のデータを全レコードを格納
+      debug('こっち通ってるか確認' . print_r($stmt, true));
+
       $rst['data'] = $stmt->fetchAll();
       return $rst;
     } else {

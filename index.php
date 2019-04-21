@@ -38,6 +38,11 @@ $currentMinNum = (($currentPageNum - 1) * $listSpan); //1ページ目なら(1-1)
 // DBから商品データを取得
 //Ajaxで受け取ったデータがある場合とGETされた時で分岐
 if (!empty($_POST)) {
+
+  if (!isset($_POST['data'])) {
+    debug('こっち通ってる');
+    $_POST['data'] = array();
+  }
   debug('Ajaxで受け取ったプロダクトデータ');
   $dbProductData = $_POST;
 } else {
@@ -142,7 +147,7 @@ require('head.php');
     <!-- Main -->
     <section id="main">
 
-      <div class="search-title">
+      <div class="search-title" id="js-ajax-search-title">
         <div class="search-left">
           <span class="total-num"><?php echo sanitize($dbProductData['total']); ?></span>件の商品が見つかりました
         </div>
@@ -151,7 +156,7 @@ require('head.php');
         </div>
       </div>
 
-      <div class="panel-list">
+      <div class="panel-list" id='js-ajax-panel-list'>
         <?php
         foreach ($dbProductData['data'] as $key => $val) :
           ?>
