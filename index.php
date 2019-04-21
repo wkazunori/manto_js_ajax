@@ -40,8 +40,7 @@ $currentMinNum = (($currentPageNum - 1) * $listSpan); //1ページ目なら(1-1)
 if (!empty($_POST)) {
 
   if (!isset($_POST['data'])) {
-    debug('こっち通ってる');
-    $_POST['data'] = array();
+    $_POST['data'] = array(); //jsonで受け取る$_POST['data']が空配列だった場合、表現されないので［data］をセットする
   }
   debug('Ajaxで受け取ったプロダクトデータ');
   $dbProductData = $_POST;
