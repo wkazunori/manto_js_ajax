@@ -36,20 +36,7 @@ $listSpan = 20;
 $currentMinNum = (($currentPageNum - 1) * $listSpan); //1ページ目なら(1-1)*20 = 0 、 ２ページ目なら(2-1)*20 = 20
 
 // DBから商品データを取得
-//Ajaxで受け取ったデータがある場合とGETされた時で分岐
-if (!empty($_POST)) {
-
-  if (!isset($_POST['data'])) {
-    $_POST['data'] = array(); //jsonで受け取る$_POST['data']が空配列だった場合、表現されないので［data］をセットする
-  }
-  debug('Ajaxで受け取ったプロダクトデータ');
-  $dbProductData = $_POST;
-} else {
-  debug('通常のプロダクトデータ');
-  $dbProductData = getProductList($category, $sort, $price, $currentMinNum); //各種ソートフラグを渡して、プロダクトテーブルから取得する内容を絞る
-}
-//$dbProductData の確認
-debug('dbProductData:' . print_r($dbProductData, true));
+$dbProductData = getProductList($category, $sort, $price, $currentMinNum); //各種ソートフラグを渡して、プロダクトテーブルから取得する内容を絞る
 
 // DBからカテゴリデータを取得
 $dbCategoryData = getCategory();
@@ -172,7 +159,9 @@ require('head.php');
       ?>
       </div>
 
-      <?php pagination($currentPageNum, $dbProductData['total_page']); ?>
+      <div class="js-ajax-pagination">
+        <?php pagination($currentPageNum, $dbProductData['total_page']); ?>
+      </div>
 
       <div class="list panel-list">
         <h2 class="title" style="margin-bottom:15px;">

@@ -100,35 +100,32 @@
       var sort_select = $("#js-sort").val();
       var category_select = $(this).val();
       var price_select = $("#js-price").val();
+      var currentPageNum = '<?php echo $currentPageNum; ?>';
       var currentMinNum = '<?php echo $currentMinNum; ?>';
 
       $.ajax({
         type: "post",
         url: "ajaxFilter.php",
-        dataType: "json",
+        dataType: "html",
         data: {
           c_id: category_select,
           sort: sort_select,
           price: price_select,
-          current: currentMinNum
+          currentPage: currentPageNum,
+          currentMin: currentMinNum
         }
       }).then(function(rst, status) {
-
         console.log(rst);
         console.log(status);
 
-        $.ajax({
-          type: "POST", // POSTで送る
-          url: "index.php", // 送信先のPHP
-          dataType: 'html',
-          data: rst
-        }).done(function(rst, status) {
-          // 丸々生成された画面がrstに入っている(新しい商品リストが展開されたver)
-          var panelListHTML = $('#js-ajax-panel-list', $(rst)).html(); // 取得したHTMLからcontentsタグの中身を抽出
-          var seachTitleHTML = $('#js-ajax-search-title', $(rst)).html(); // 取得したHTMLからcontentsタグの中身を抽出
-          $('#js-ajax-panel-list').html(panelListHTML);
-          $('#js-ajax-search-title').html(seachTitleHTML);
-        });
+        var panelListHTML = $('#js-ajax-panel-list', $(rst)).html(); // 取得したHTMLからcontentsタグの中身を抽出
+        var seachTitleHTML = $('#js-ajax-search-title', $(rst)).html(); // 取得したHTMLからcontentsタグの中身を抽出
+        var paginationHTML = $('#js-ajax-pagination', $(rst)).html(); // 取得したHTMLからcontentsタグの中身を抽出
+        $('#js-ajax-panel-list').html(panelListHTML);
+        $('#js-ajax-search-title').html(seachTitleHTML);
+        $('#js-ajax-pagination').html(paginationHTML);
+
+
       });
     });
 
@@ -137,34 +134,32 @@
       var sort_select = $(this).val();
       var category_select = $("#js-category").val();
       var price_select = $("#js-price").val();
+      var currentPageNum = '<?php echo $currentPageNum; ?>';
       var currentMinNum = '<?php echo $currentMinNum; ?>';
 
       $.ajax({
         type: "post",
         url: "ajaxFilter.php",
-        dataType: "json",
+        dataType: "html",
         data: {
           c_id: category_select,
           sort: sort_select,
           price: price_select,
-          current: currentMinNum
+          currentPage: currentPageNum,
+          currentMin: currentMinNum
         }
       }).then(function(rst, status) {
         console.log(rst);
         console.log(status);
-        // rstを使ってでまるごと書き換える処理へ $(rst).$(rst).find('取得したい要素名を指定').html()といった感じ ajaxPanel-listを作って $('中を変えたい要素名').html(ajaxPanel-list)
-        $.ajax({
-          type: "POST", // POSTで送る
-          url: "index.php", // 送信先のPHP
-          dataType: 'html',
-          data: rst
-        }).done(function(rst, status) {
-          // 丸々生成された画面がrstに入っている(新しい商品リストが展開されたver)
-          var panelListHTML = $('#js-ajax-panel-list', $(rst)).html(); // 取得したHTMLからcontentsタグの中身を抽出
-          var seachTitleHTML = $('#js-ajax-search-title', $(rst)).html(); // 取得したHTMLからcontentsタグの中身を抽出
-          $('#js-ajax-panel-list').html(panelListHTML);
-          $('#js-ajax-search-title').html(seachTitleHTML);
-        });
+
+        var panelListHTML = $('#js-ajax-panel-list', $(rst)).html(); // 取得したHTMLからcontentsタグの中身を抽出
+        var seachTitleHTML = $('#js-ajax-search-title', $(rst)).html(); // 取得したHTMLからcontentsタグの中身を抽出
+        var paginationHTML = $('#js-ajax-pagination', $(rst)).html(); // 取得したHTMLからcontentsタグの中身を抽出
+        $('#js-ajax-panel-list').html(panelListHTML);
+        $('#js-ajax-search-title').html(seachTitleHTML);
+        $('#js-ajax-pagination').html(paginationHTML);
+
+
       });
     });
 
@@ -173,37 +168,34 @@
       var sort_select = $("#js-sort").val();
       var category_select = $("#js-category").val();
       var price_select = $(this).val();
+      var currentPageNum = '<?php echo $currentPageNum; ?>';
       var currentMinNum = '<?php echo $currentMinNum; ?>';
 
       $.ajax({
         type: "post",
         url: "ajaxFilter.php",
-        dataType: "json",
+        dataType: "html",
         data: {
           c_id: category_select,
           sort: sort_select,
           price: price_select,
-          current: currentMinNum
+          currentPage: currentPageNum,
+          currentMin: currentMinNum
         }
       }).then(function(rst, status) {
         console.log(rst);
         console.log(status);
-        $.ajax({
-          type: "POST", // POSTで送る
-          url: "index.php", // 送信先のPHP
-          dataType: 'html',
-          data: rst //新しく作った商品リストを渡す
-        }).done(function(rst, status) {
-          // 丸々生成された画面がrstに入っている(新しい商品リストが展開されたver)
-          var panelListHTML = $('#js-ajax-panel-list', $(rst)).html(); // 取得したHTMLからcontentsタグの中身を抽出
-          var seachTitleHTML = $('#js-ajax-search-title', $(rst)).html(); // 取得したHTMLからcontentsタグの中身を抽出
-          $('#js-ajax-panel-list').html(panelListHTML);
-          $('#js-ajax-search-title').html(seachTitleHTML);
-        });
+
+        var panelListHTML = $('#js-ajax-panel-list', $(rst)).html(); // 取得したHTMLからcontentsタグの中身を抽出
+        var seachTitleHTML = $('#js-ajax-search-title', $(rst)).html(); // 取得したHTMLからcontentsタグの中身を抽出
+        var paginationHTML = $('#js-ajax-pagination', $(rst)).html(); // 取得したHTMLからcontentsタグの中身を抽出
+        $('#js-ajax-panel-list').html(panelListHTML);
+        $('#js-ajax-search-title').html(seachTitleHTML);
+        $('#js-ajax-pagination').html(paginationHTML);
+
       });
     });
 
-    //todo: .search-titleの書き換え追加
     //----end---
 
 
