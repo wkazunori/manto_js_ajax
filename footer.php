@@ -165,12 +165,12 @@
 
     //価格フィルター
     $("#js-price").change(function() {
+
       var sort_select = $("#js-sort").val();
       var category_select = $("#js-category").val();
       var price_select = $(this).val();
       var currentPageNum = '<?php echo $currentPageNum; ?>';
       var currentMinNum = '<?php echo $currentMinNum; ?>';
-
       $.ajax({
         type: "post",
         url: "ajaxFilter.php",

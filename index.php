@@ -125,7 +125,6 @@ require('head.php');
                               } ?>>10000~</option>
           </select>
         </div>
-        <input type="submit" value="検索">
       </form>
 
     </section>
