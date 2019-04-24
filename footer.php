@@ -95,10 +95,9 @@
 
     //----フィルター機能(ajax)---
 
-    //カテゴリフィルター
-    $("#js-category").change(function() {
+    var updateItemList = function(){
       var sort_select = $("#js-sort").val();
-      var category_select = $(this).val();
+      var category_select = $("#js-category").val();
       var price_select = $("#js-price").val();
       var currentPageNum = '<?php echo $currentPageNum; ?>';
       var currentMinNum = '<?php echo $currentMinNum; ?>';
@@ -125,76 +124,17 @@
         $('#js-ajax-search-title').html(seachTitleHTML);
         $('#js-ajax-pagination').html(paginationHTML);
 
-
       });
-    });
+    }
+
+    //カテゴリフィルター
+    $("#js-category").change(updateItemList);
 
     //ソートフィルター
-    $("#js-sort").change(function() {
-      var sort_select = $(this).val();
-      var category_select = $("#js-category").val();
-      var price_select = $("#js-price").val();
-      var currentPageNum = '<?php echo $currentPageNum; ?>';
-      var currentMinNum = '<?php echo $currentMinNum; ?>';
-
-      $.ajax({
-        type: "post",
-        url: "ajaxFilter.php",
-        dataType: "html",
-        data: {
-          c_id: category_select,
-          sort: sort_select,
-          price: price_select,
-          currentPage: currentPageNum,
-          currentMin: currentMinNum
-        }
-      }).then(function(rst, status) {
-        console.log(rst);
-        console.log(status);
-
-        var panelListHTML = $('#js-ajax-panel-list', $(rst)).html(); // 取得したHTMLからcontentsタグの中身を抽出
-        var seachTitleHTML = $('#js-ajax-search-title', $(rst)).html(); // 取得したHTMLからcontentsタグの中身を抽出
-        var paginationHTML = $('#js-ajax-pagination', $(rst)).html(); // 取得したHTMLからcontentsタグの中身を抽出
-        $('#js-ajax-panel-list').html(panelListHTML);
-        $('#js-ajax-search-title').html(seachTitleHTML);
-        $('#js-ajax-pagination').html(paginationHTML);
-
-
-      });
-    });
+    $("#js-sort").change(updateItemList);
 
     //価格フィルター
-    $("#js-price").change(function() {
-      var sort_select = $("#js-sort").val();
-      var category_select = $("#js-category").val();
-      var price_select = $(this).val();
-      var currentPageNum = '<?php echo $currentPageNum; ?>';
-      var currentMinNum = '<?php echo $currentMinNum; ?>';
-
-      $.ajax({
-        type: "post",
-        url: "ajaxFilter.php",
-        dataType: "html",
-        data: {
-          c_id: category_select,
-          sort: sort_select,
-          price: price_select,
-          currentPage: currentPageNum,
-          currentMin: currentMinNum
-        }
-      }).then(function(rst, status) {
-        console.log(rst);
-        console.log(status);
-
-        var panelListHTML = $('#js-ajax-panel-list', $(rst)).html(); // 取得したHTMLからcontentsタグの中身を抽出
-        var seachTitleHTML = $('#js-ajax-search-title', $(rst)).html(); // 取得したHTMLからcontentsタグの中身を抽出
-        var paginationHTML = $('#js-ajax-pagination', $(rst)).html(); // 取得したHTMLからcontentsタグの中身を抽出
-        $('#js-ajax-panel-list').html(panelListHTML);
-        $('#js-ajax-search-title').html(seachTitleHTML);
-        $('#js-ajax-pagination').html(paginationHTML);
-
-      });
-    });
+    $("#js-price").change(updateItemList);
 
     //----end---
 
