@@ -94,25 +94,30 @@
     }
 
     //----フィルター機能(ajax)---
+    //フィルターに必要な要素を持つクラスを作成
+    var filter_items = function() {
+      this.category_select = $("#js-category").val();
+      this.sort_select = $("#js-sort").val();
+      this.price_select = $("#js-price").val();
+      this.currentPageNum = '<?php echo $currentPageNum; ?>';
+      this.currentMinNum = '<?php echo $currentMinNum; ?>';
+    };
 
     //カテゴリフィルター
     $("#js-category").change(function() {
-      var sort_select = $("#js-sort").val();
-      var category_select = $(this).val();
-      var price_select = $("#js-price").val();
-      var currentPageNum = '<?php echo $currentPageNum; ?>';
-      var currentMinNum = '<?php echo $currentMinNum; ?>';
+
+      var items = new filter_items();
 
       $.ajax({
         type: "post",
         url: "ajaxFilter.php",
         dataType: "html",
         data: {
-          c_id: category_select,
-          sort: sort_select,
-          price: price_select,
-          currentPage: currentPageNum,
-          currentMin: currentMinNum
+          c_id: items.category_select,
+          sort: items.sort_select,
+          price: items.price_select,
+          currentPage: items.currentPageNum,
+          currentMin: items.currentMinNum
         }
       }).then(function(rst, status) {
         console.log(rst);
@@ -131,22 +136,19 @@
 
     //ソートフィルター
     $("#js-sort").change(function() {
-      var sort_select = $(this).val();
-      var category_select = $("#js-category").val();
-      var price_select = $("#js-price").val();
-      var currentPageNum = '<?php echo $currentPageNum; ?>';
-      var currentMinNum = '<?php echo $currentMinNum; ?>';
+
+      var items = new filter_items();
 
       $.ajax({
         type: "post",
         url: "ajaxFilter.php",
         dataType: "html",
         data: {
-          c_id: category_select,
-          sort: sort_select,
-          price: price_select,
-          currentPage: currentPageNum,
-          currentMin: currentMinNum
+          c_id: items.category_select,
+          sort: items.sort_select,
+          price: items.price_select,
+          currentPage: items.currentPageNum,
+          currentMin: items.currentMinNum
         }
       }).then(function(rst, status) {
         console.log(rst);
@@ -166,21 +168,18 @@
     //価格フィルター
     $("#js-price").change(function() {
 
-      var sort_select = $("#js-sort").val();
-      var category_select = $("#js-category").val();
-      var price_select = $(this).val();
-      var currentPageNum = '<?php echo $currentPageNum; ?>';
-      var currentMinNum = '<?php echo $currentMinNum; ?>';
+      var items = new filter_items();
+
       $.ajax({
         type: "post",
         url: "ajaxFilter.php",
         dataType: "html",
         data: {
-          c_id: category_select,
-          sort: sort_select,
-          price: price_select,
-          currentPage: currentPageNum,
-          currentMin: currentMinNum
+          c_id: items.category_select,
+          sort: items.sort_select,
+          price: items.price_select,
+          currentPage: items.currentPageNum,
+          currentMin: items.currentMinNum
         }
       }).then(function(rst, status) {
         console.log(rst);
